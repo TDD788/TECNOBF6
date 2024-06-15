@@ -5,17 +5,23 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Inherit from those products. Most specific first.
+DEVICE_PATH=device/tecno/TECNO-BF6
+
+# Inherit from those products
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit some common Omni stuff.
+# Inherit from device configuration
+$(call inherit-product, $(DEVICE_PATH)/device.mk)
+
+# Fox settings
+$(call inherit-product-if-exists, $(DEVICE_PATH)/fox_$(PRODUCT_DEVICE).mk)
+
+# Inherit from TWRP common configuration
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Inherit from TECNO-BF6 device
-$(call inherit-product, device/tecno/TECNO-BF6/device.mk)
-
 PRODUCT_DEVICE := TECNO-BF6
-PRODUCT_NAME := omni_TECNO-BF6
+PRODUCT_NAME := twrp_TECNO-BF6
 PRODUCT_BRAND := TECNO
 PRODUCT_MODEL := TECNO BF6
 PRODUCT_MANUFACTURER := tecno
